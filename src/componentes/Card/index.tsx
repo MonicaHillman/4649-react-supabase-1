@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import "./styles.css";
 
 type CardProps = {
@@ -20,7 +21,9 @@ export default function Card({ id, imagemUrl, titulo, resumo }: CardProps) {
         </div>
 
         <div className="conteudo__botoes">
-          <button className="botao__editar">Editar</button>
+          <Link to={`/editar-publicacao/${id}`} className="botao__editar">
+            Editar
+          </Link>
           <button className="botao__deletar">Apagar</button>
         </div>
       </div>
