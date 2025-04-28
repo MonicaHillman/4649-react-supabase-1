@@ -14,6 +14,7 @@ export default function FormularioProjeto({ projetoInicial, onSubmit }: Formular
   const [imagem, setImagem] = useState<File | null>(null);
   const [tags, setTags] = useState<string[]>(projetoInicial?.tags || []);
   const [novaTag, setNovaTag] = useState("");
+  const imagemProjetoInicial = projetoInicial?.imagem || null;
 
   function handleImagemChange(e: ChangeEvent<HTMLInputElement>) {
     if (e.target.files && e.target.files[0]) {
@@ -41,8 +42,8 @@ export default function FormularioProjeto({ projetoInicial, onSubmit }: Formular
     <form onSubmit={handleSubmit} className="formulario-projeto">
       <div>
         <div>
-          {imagem ? (
-            <img src={URL.createObjectURL(imagem)} alt="Preview" className="form-imagem" />
+          {imagemProjetoInicial ? (
+            <img src={imagemProjetoInicial} alt="Preview" className="form-imagem" />
           ) : (
             <img src="https://picsum.photos/200/300" alt="Imagem padrão" className="form-imagem" />
           )}

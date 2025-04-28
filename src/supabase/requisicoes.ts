@@ -59,3 +59,19 @@ export function enviarImagem(arquivo: File) {
       return publicUrl;
     });
 }
+
+export function buscarPostagemPorId(id: string) {
+  return supabase
+    .from("Publicação")
+    .select("*")
+    .eq("id", id)
+    .single()
+    .then(({ data, error }) => {
+      if (error) {
+        console.error("Erro ao buscar o projeto", error.message);
+        return null;
+      }
+
+      return data;
+    });
+}
