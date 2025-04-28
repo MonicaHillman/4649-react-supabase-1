@@ -1,11 +1,10 @@
 import { useState, ChangeEvent, FormEvent } from "react";
 import "./styles.css";
 import { Projeto } from "../../tipagem/Projeto";
-import { ProjetoAntesDoSupabase } from "../../tipagem/ProjetoAntesDoSupabase";
 
 type FormularioProjetoProps = {
   projetoInicial?: Projeto;
-  onSubmit: (projeto: ProjetoAntesDoSupabase) => void;
+  onSubmit: (projeto: Projeto) => void;
 };
 
 export default function FormularioProjeto({ projetoInicial, onSubmit }: FormularioProjetoProps) {
