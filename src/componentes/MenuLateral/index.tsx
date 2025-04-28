@@ -18,7 +18,7 @@ export default function MenuLateral() {
             </Link>
           </li>
           <li>
-            <Link to="/" className="item__link item__link--ativo">
+            <Link to="/" className="item__  item__link--ativo">
               <img src={Feed} alt="" />
               <span>Feed</span>
             </Link>
