@@ -1,3 +1,4 @@
+import { Projeto } from "../tipagem/Projeto";
 import { ProjetoAntesDoSupabase } from "../tipagem/ProjetoAntesDoSupabase";
 import { supabase } from "./supabaseClient";
 
@@ -69,6 +70,21 @@ export function buscarPostagemPorId(id: string) {
     .then(({ data, error }) => {
       if (error) {
         console.error("Erro ao buscar o projeto", error.message);
+        return null;
+      }
+
+      return data;
+    });
+}
+
+export function atualizarPostagem(id: string, novosDados: Projeto) {
+  return supabase
+    .from("Publicação")
+    .update(novosDados)
+    .eq("id", id)
+    .then(({ data, error }) => {
+      if (error) {
+        console.error("Não foi possível atualizar o projeto");
         return null;
       }
 

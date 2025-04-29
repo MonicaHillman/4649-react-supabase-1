@@ -2,7 +2,8 @@ import { useEffect, useState } from "react";
 import FormularioProjeto from "../../componentes/FormularioProjeto";
 import { Projeto } from "../../tipagem/Projeto";
 import { useParams } from "react-router-dom";
-import { buscarPostagemPorId } from "../../supabase/requisicoes";
+import { atualizarPostagem, buscarPostagemPorId, enviarImagem } from "../../supabase/requisicoes";
+import { ProjetoAntesDoSupabase } from "../../tipagem/ProjetoAntesDoSupabase";
 
 export default function EditarPublicacao() {
   const [projeto, setProjeto] = useState<Projeto>();
@@ -14,10 +15,35 @@ export default function EditarPublicacao() {
         setProjeto(projetoBuscado);
       });
     }
-  });
+  }, [id]);
 
-  function atualizarProjeto(projeto: Projeto) {
-    console.log("Projeto atualizado:", projeto);
+  function atualizarProjeto(projetoEnviado: ProjetoAntesDoSupabase) {
+    if (!id || !projeto) return;
+
+    if (projetoEnviado.imagem instanceof File) {
+      enviarImagem(projetoEnviado.imagem).then((urlDaImagem) => {
+        if (!urlDaImagem) {
+          console.error("Erro ao atualizar a imagem da publicação");
+          return;
+        }
+
+        const projetoAtualizado = {
+          ...projetoEnviado,
+          id,
+          imagem: urlDaImagem,
+        };
+
+        atualizarPostagem(id, projetoAtualizado);
+      });
+    } else {
+      const projetoAtualizado = {
+        ...projetoEnviado,
+        id,
+        imagem: projeto.imagem,
+      };
+
+      atualizarPostagem(id, projetoAtualizado);
+    }
   }
 
   return (
