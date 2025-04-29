@@ -91,3 +91,18 @@ export function atualizarPostagem(id: string, novosDados: Projeto) {
       return data;
     });
 }
+
+export function deletarPostagem(id: string) {
+  return supabase
+    .from("Publicação")
+    .delete()
+    .eq("id", id)
+    .then(({ data, error }) => {
+      if (error) {
+        console.error("Erro ao deletar a postagem");
+        return null;
+      }
+
+      return data;
+    });
+}
